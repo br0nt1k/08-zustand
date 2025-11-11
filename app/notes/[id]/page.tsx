@@ -15,7 +15,7 @@ export async function generateMetadata({
   params,
 }: NoteDetailsProps): Promise<Metadata> {
   const { id } = await params;
-  const noteCategory = await fetchNoteById(Number(id));
+  const noteCategory = await fetchNoteById(id);
 
   return {
     title: `Деталі нотатки: ${noteCategory.title}`,
@@ -35,7 +35,7 @@ const NoteDetails = async ({ params }: NoteDetailsProps) => {
 
   await queryClient.prefetchQuery({
     queryKey: ["note", id],
-    queryFn: () => fetchNoteById(Number(id)),
+    queryFn: () => fetchNoteById(id),
   });
 
   return (
