@@ -12,7 +12,7 @@ export default function NoteList({ notes }: NoteListProps) {
   const queryClient = useQueryClient();
 
   const deleteNoteMutation = useMutation({
-    mutationFn: (noteId: number) => deleteNote(noteId),
+    mutationFn: (id: string) => deleteNote(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
     },
@@ -35,7 +35,7 @@ export default function NoteList({ notes }: NoteListProps) {
             </Link>
             <button
               className={css.button}
-              onClick={() => deleteNoteMutation.mutate(note.id)}
+              onClick={() => deleteNoteMutation.mutate(note.id.toString())}
               disabled={deleteNoteMutation.isPending}
             >
               Delete
