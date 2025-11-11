@@ -14,7 +14,8 @@ type NoteDetailsProps = {
 export async function generateMetadata({
   params,
 }: NoteDetailsProps): Promise<Metadata> {
-  const noteCategory = await fetchNoteById(Number((await params).id));
+  const { id } = await params;
+  const noteCategory = await fetchNoteById(Number(id));
 
   return {
     title: `Деталі нотатки: ${noteCategory.title}`,
@@ -22,19 +23,19 @@ export async function generateMetadata({
     openGraph: {
       title: `Нотатка - ${noteCategory.title}`,
       description: `Деталі нотатки: ${noteCategory.title}.`,
-      url: `https://notehub.app/notes/${(await params).id}`,
-      images: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      url: `https://notehub.app/notes/${id}`,
+      images: [{ url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg" }],
     },
   };
 }
 
 const NoteDetails = async ({ params }: NoteDetailsProps) => {
   const queryClient = new QueryClient();
-  const response = await params;
+  const { id } = await params;
 
   await queryClient.prefetchQuery({
-    queryKey: ["note", response.id],
-    queryFn: () => fetchNoteById(Number(response.id)),
+    queryKey: ["note", id],
+    queryFn: () => fetchNoteById(Number(id)),
   });
 
   return (
