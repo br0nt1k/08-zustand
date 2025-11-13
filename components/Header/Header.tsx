@@ -1,7 +1,7 @@
 import React from "react";
 import css from "./Header.module.css";
 import Link from "next/link";
-import TagsMenu from "../TagsMenu/TagsMenu";
+import TagsMenu from "../TagsMenu/TagsMenu"; 
 
 const Header = () => {
   return (
@@ -13,6 +13,9 @@ const Header = () => {
         <ul className={css.navigation}>
           <li>
             <Link href="/">Home</Link>
+          </li>
+          <li>
+            <Link href="/notes/filter/all">All Notes</Link>
           </li>
           <li>
             <TagsMenu />
